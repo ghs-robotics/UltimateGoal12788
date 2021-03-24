@@ -47,7 +47,6 @@ public class Tele1 extends OpMode
     public void init() {
         robot = new Robot(hardwareMap, telemetry);
         controller1 = new Controller(gamepad1);
-        robot.resetServos();
         telemetry.addData("Status", "Initialized");
         telemetry.update();
     }
@@ -78,31 +77,6 @@ public class Tele1 extends OpMode
                 controller1.right_stick_x
         );
         robot.updateDrive();
-
-        //Press left bumper to turn on/off the shooter motor
-        if (controller1.left_bumper.equals("pressing")) {
-            robot.toggleShooter();
-        }
-
-        //Press right bumper to launch a ring
-        if (controller1.right_bumper.equals("pressing")) {
-            robot.launchRing();
-        }
-
-        //Press "y" to turn on/off the intake motor
-        if (controller1.y.equals("pressing")) {
-            robot.toggleIntake();
-        }
-
-        //Press "b" to toggle the wobble gripper
-        if (controller1.b.equals("pressing")) {
-            robot.toggleGrab();
-        }
-
-        //Press "a" to turn the arm
-        if (controller1.a.equals("pressing")) {
-            robot.turnArm();
-        }
 
 
     }
