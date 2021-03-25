@@ -1,9 +1,10 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Controller;
+import org.firstinspires.ftc.teamcode.components.Controller;
+import org.firstinspires.ftc.teamcode.components.Robot;
 
 @TeleOp(name="Tele1", group="Iterative Opmode")
 public class Tele1 extends OpMode
