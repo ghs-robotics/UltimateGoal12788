@@ -64,6 +64,7 @@ public class Robot {
 
     // Calculates powers for mecanum wheel drive
     public void calculateDrivePowers(double x, double y, double rotation) {
+        x *= -1.0;
         double r = Math.hypot(x, y);
         double robotAngle = Math.atan2(y, x) - Math.PI / 4;
         leftFrontPower = Range.clip(r * Math.cos(robotAngle) + rotation, -1.0, 1.0) * speed;
