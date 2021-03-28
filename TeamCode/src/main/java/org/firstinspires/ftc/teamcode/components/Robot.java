@@ -19,6 +19,8 @@ public class Robot {
     public double speed = 1;
     public double config = 0;
 
+    public DriveMode mode = DriveMode.POV;
+
     public CameraManager cameraManager;
 
     public DcMotor leftFrontDrive;
@@ -71,6 +73,10 @@ public class Robot {
         x *= -1.0;
         double r = Math.hypot(x, y);
         double robotAngle = Math.atan2(y, x) - Math.PI / 4;
+        if(mode == DriveMode.META) {
+            // Rotate the angle to make direction not depend on orientation
+            robotAngle += Math.toRadians(gyro.getAngle());
+        }
         leftFrontPower = Range.clip(r * Math.cos(robotAngle) + rotation, -1.0, 1.0) * speed;
         rightFrontPower = Range.clip(r * Math.sin(robotAngle) - rotation, -1.0, 1.0) * speed;
         leftRearPower = Range.clip(r * Math.sin(robotAngle) + rotation, -1.0, 1.0) * speed;
