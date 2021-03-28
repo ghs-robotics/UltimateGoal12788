@@ -25,23 +25,20 @@ public class CameraManager {
 
     // Initialize the camera
     public void initCamera() {
-        startStreaming();
-        /*
         // Sets the viewport policy to optimized view so the preview doesn't appear 90 deg
         // out when the RC activity is in portrait. We do our actual image processing assuming
         // landscape orientation, though.
-        currentCamera.setViewportRenderingPolicy(OpenCvCamera.ViewportRenderingPolicy.OPTIMIZE_VIEW);
-        currentCamera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
+        phoneCam.setViewportRenderingPolicy(OpenCvCamera.ViewportRenderingPolicy.OPTIMIZE_VIEW);
+        phoneCam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
                 startStreaming();
             }
         });
-        */
     }
 
     //Start streaming frames on the phone camera
-    public void startStreaming() {
+    private void startStreaming() {
 //        phoneCam.setViewportRenderingPolicy(OpenCvCamera.ViewportRenderingPolicy.OPTIMIZE_VIEW);
         phoneCam.startStreaming(320, 240, OpenCvCameraRotation.SIDEWAYS_RIGHT);
     }
