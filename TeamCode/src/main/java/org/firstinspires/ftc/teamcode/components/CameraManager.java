@@ -3,20 +3,24 @@ package org.firstinspires.ftc.teamcode.components;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
+import org.openftc.easyopencv.OpenCvInternalCamera;
 
 public class CameraManager {
 
     // CAUTION, I changed the type of the camera to OpenCvCamera so I can make the cameras interchangeable
 //    public OpenCvInternalCamera phoneCam;
     public OpenCvCamera phoneCam;
-
+    public  CvPipeline pipeline;
     // Current camera alternates between the phoneCam and the webcam
 //    public OpenCvCamera currentCamera;
-    public CvPipeline pipeline;
 
     public CameraManager(HardwareMap hardwareMap) {
-
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        phoneCam = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
+        pipeline = new CvPipeline();
+        phoneCam.setPipeline(pipeline);
     }
 
     // Initialize the camera

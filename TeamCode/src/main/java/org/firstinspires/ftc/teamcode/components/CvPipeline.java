@@ -8,11 +8,12 @@ import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
+import org.openftc.easyopencv.OpenCvPipeline;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CvPipeline {
+public class CvPipeline extends OpenCvPipeline {
     public static final Scalar LOWER_RING_HSV = new Scalar(74, 153, 144); // original values: 74, 153, 144
     public static final Scalar UPPER_RING_HSV = new Scalar(112, 242, 255); // original values: 112, 242, 255
     public static final Scalar LOWER_TOWER_HSV = new Scalar(0, 80, 100); // original values: 0, 124, 60
@@ -50,7 +51,8 @@ public class CvPipeline {
         return new int[]{objectX, objectY, objectWidth, objectHeight};
     }
 
-    public int[] findObjectCoordinates(Mat src) {
+    //supposed to return int array of object coordinates
+    public Mat findObjectCoordinates(Mat src) {
 
         Imgproc.resize(src, src, new Size(320, 240));
 
@@ -80,6 +82,12 @@ public class CvPipeline {
         // Draw largest rect
         Imgproc.rectangle(src, largest, GREEN, 1); // TODO : comment out?
 
-        return new int[]{largest.x, largest.y, largest.width, largest.height};
+        return src;
+        //return new int[]{largest.x, largest.y, largest.width, largest.height};
+    }
+
+    @Override
+    public Mat processFrame(Mat input) {
+        return findObjectCoordinates(input);
     }
 }

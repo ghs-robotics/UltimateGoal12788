@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.components.Controller;
+import org.firstinspires.ftc.teamcode.components.CvPipeline;
 import org.firstinspires.ftc.teamcode.components.Robot;
 
 @TeleOp(name="Tele1", group="Iterative Opmode")
@@ -49,8 +50,6 @@ public class Tele1 extends OpMode
                 controller1.right_stick_x
         );
         robot.updateDrive();
-
-
     }
 
     //Code to run ONCE after the driver hits STOP
