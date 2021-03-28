@@ -1,10 +1,13 @@
 package org.firstinspires.ftc.teamcode.components;
+import android.graphics.Camera;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.components.Gyro;
+import org.opencv.core.Scalar;
 
 public class Robot {
 
@@ -16,7 +19,7 @@ public class Robot {
     public double speed = 1;
     public double config = 0;
 
-    HardwareMap hardwareMap; // TODO : get rid of this
+    public CameraManager cameraManager;
 
     public DcMotor leftFrontDrive;
     public DcMotor rightFrontDrive;
@@ -29,7 +32,8 @@ public class Robot {
 
     // Creates a robot object with methods that we can use in both Auto and TeleOp
     public Robot(HardwareMap hardwareMap, Telemetry telemetry) {
-        this.hardwareMap = hardwareMap;// TODO : get rid of this
+
+        cameraManager = new CameraManager(hardwareMap);
 
         // These are the names to use in the phone config (in quotes below)
         leftFrontDrive = hardwareMap.get(DcMotor.class, "leftFrontDrive");
