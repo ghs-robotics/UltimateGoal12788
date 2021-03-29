@@ -30,6 +30,8 @@ public class Robot {
     public Gyro gyro;
     public Telemetry telemetry;
 
+//    private int encoderZeroPoint;
+
     // Creates a robot object with methods that we can use in both Auto and TeleOp
     public Robot(HardwareMap hardwareMap, Telemetry telemetry) {
 
@@ -115,4 +117,12 @@ public class Robot {
         double start = getElapsedTimeSeconds();
         while (getElapsedTimeSeconds() - start < seconds) {}
     }
+
+
+    // we don't have
+//    private double encoderTicksToMeters(int ticks) {
+//        double revolutions = (double)ticks / 537.7;
+//        double distance = revolutions * 0.30159; // 96mm diameter * pi, converted to meters
+//        return distance;
+//    }
 }
