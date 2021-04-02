@@ -54,4 +54,6 @@ public class CameraManager {
     public int[] getObjectData(String target) {
         return pipeline.getObjectData();
     }
+
+    public CvPipeline getPipeline() {return pipeline;}
 }
