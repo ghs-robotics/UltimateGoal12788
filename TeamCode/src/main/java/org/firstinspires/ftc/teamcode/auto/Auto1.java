@@ -33,6 +33,7 @@ public class Auto1 extends LinearOpMode {
 
         telemetry.addData("Status","Initialized");
         telemetry.update();
+        robot.cameraManager.initCamera();
 
         waitForStart();
         robot.resetElapsedTime();

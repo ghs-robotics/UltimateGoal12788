@@ -22,6 +22,7 @@ public class Tele1 extends OpMode
         controller1 = new Controller(gamepad1);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
+        robot.cameraManager.initCamera();
     }
 
     //Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
