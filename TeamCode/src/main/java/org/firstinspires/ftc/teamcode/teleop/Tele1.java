@@ -37,6 +37,7 @@ public class Tele1 extends OpMode
     @Override
     public void loop() {
         //Registers controller input
+        robot.setTargetTo("tower");
         controller1.update();
 
         //Press "x" to toggle speed between 100% and 30%

@@ -56,17 +56,19 @@ public class CvPipeline extends OpenCvPipeline {
 
         Imgproc.resize(src, src, new Size(320, 240));
 
+        Mat dst = src;
+
         // Convert color from RGB to HSV
-        Imgproc.cvtColor(src, src, Imgproc.COLOR_BGR2HSV);
+        Imgproc.cvtColor(dst, dst, Imgproc.COLOR_BGR2HSV);
 
         // adding a mask to the dst mat
         // filters colors within certain color range
-        Core.inRange(src, lower, upper, src);
+        Core.inRange(dst, lower, upper, dst);
 
         // Get the contours of the ring
         List<MatOfPoint> contours = new ArrayList<>();
         Mat hierarchy = new Mat();
-        Imgproc.findContours(src, contours, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
+        Imgproc.findContours(dst, contours, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 
         // Draw contours on the src image
         Imgproc.drawContours(src, contours, -1, GREEN, 2, Imgproc.LINE_8, hierarchy, 2, new Point());
