@@ -23,9 +23,23 @@ public class CameraManager {
         phoneCam.setPipeline(pipeline);
     }
 
+    public void setTargetToTower() {
+        pipeline.lower = pipeline.LOWER_TOWER_HSV;
+        pipeline.upper = pipeline.UPPER_TOWER_HSV;
+    }
+
+    public void setTargetToRing() {
+        pipeline.lower = pipeline.LOWER_RING_HSV;
+        pipeline.upper = pipeline.UPPER_RING_HSV;
+    }
+
+    public void setTargetToWobble() {
+        pipeline.lower = pipeline.LOWER_WOBBLE_HSV;
+        pipeline.upper = pipeline.UPPER_WOBBLE_HSV;
+    }
+
     // Initialize the camera
     public void initCamera() {
-        startStreaming();
         // Sets the viewport policy to optimized view so the preview doesn't appear 90 deg
         // out when the RC activity is in portrait. We do our actual image processing assuming
         // landscape orientation, though.

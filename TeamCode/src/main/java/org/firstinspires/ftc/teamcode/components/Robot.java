@@ -122,6 +122,9 @@ public class Robot {
         targetVals[0] = target == "ring" ? 230 : target == "wobble" ? 60 : 140;
         targetVals[1] = target == "ring" ? 190 : target == "wobble" ? 160 : 0;
         targetVals[2] = target == "tower" ? 70 : 0;
+        if (target.equals("tower")) {cameraManager.setTargetToTower();}
+            else if (target.equals("wobble")) {cameraManager.setTargetToWobble();}
+            else if (target.equals("ring")) {cameraManager.setTargetToRing();}
     }
 
     public void setTargetTo(int tX, int tY, int tW, int tH) {
@@ -141,6 +144,7 @@ public class Robot {
     //Robot lines up with target x relative to tower and with certain tower width
     public void chaseTower() {
         setTargetTo("tower");
+        cameraManager.setTargetToTower();
         updateObjectValues();
 
         double dx = targetVals[0] - objectVals[0];
