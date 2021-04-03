@@ -33,10 +33,10 @@ public class Robot {
     public DcMotor rightFrontDrive;
     public DcMotor leftRearDrive;
     public DcMotor rightRearDrive;
-    public DcMotor intakeMotor;
-    public Servo armServo;
-    public Servo grabServo;
-    public Servo shooterServo;
+    //public DcMotor intakeMotor;
+    //public Servo armServo;
+    //public Servo grabServo;
+    //public Servo shooterServo;
 
     public ElapsedTime elapsedTime;
     public Gyro gyro;
@@ -52,10 +52,10 @@ public class Robot {
         rightFrontDrive = hardwareMap.get(DcMotor.class, "rightFrontDrive");
         leftRearDrive = hardwareMap.get(DcMotor.class, "leftRearDrive");
         rightRearDrive = hardwareMap.get(DcMotor.class, "rightRearDrive");
-        intakeMotor = hardwareMap.get(DcMotor.class, "intakeMotor");
-        armServo = hardwareMap.get(Servo.class, "armServo");
-        grabServo = hardwareMap.get(Servo.class, "grabServo");
-        shooterServo = hardwareMap.get(Servo.class, "shooterServo");
+        //intakeMotor = hardwareMap.get(DcMotor.class, "intakeMotor");
+        //armServo = hardwareMap.get(Servo.class, "armServo");
+        //grabServo = hardwareMap.get(Servo.class, "grabServo");
+        //shooterServo = hardwareMap.get(Servo.class, "shooterServo");
 
         // Defines the forward direction for each of our motors/servos
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -234,21 +234,21 @@ public class Robot {
 
     public void toggleIntake() {
         intakePower = (intakePower == 0 ? 0.6 : 0);
-        intakeMotor.setPower(intakePower);
+        //intakeMotor.setPower(intakePower);
     }
 
     // Turns the arm
     public void turnArm() {
         // Default angle is 0.5 (which is the up position)
         armAngle = (armAngle == 0.88 ? 0.45 : 0.88);
-        armServo.setPosition(armAngle);
+        //armServo.setPosition(armAngle);
     }
 
     // Toggles the wobble gripper
     public void toggleGrab() {
         // Default angle is 0.15 (which means the gripper is closed)
         grabAngle = (grabAngle == 0.48 ? 0.15 : 0.48);
-        grabServo.setPosition(grabAngle);
+        //grabServo.setPosition(grabAngle);
     }
 
 
@@ -293,8 +293,8 @@ public class Robot {
 
     // Sets servos to starting positions
     public void resetServos() {
-        armServo.setPosition(armAngle);
-        grabServo.setPosition(grabAngle);
+        //armServo.setPosition(armAngle);
+        //grabServo.setPosition(grabAngle);
     }
 
     // Resets the timer

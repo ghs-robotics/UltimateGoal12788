@@ -11,7 +11,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 //this robot will not be able to shoot rings for a few weeks so moving the wobble goal is the
 // only thing this robot can do :(
 @Autonomous
-class Auto2 extends LinearOpMode { //Auto2 is the same as auto1 but without launcher or grabber
+public class Auto2 extends LinearOpMode { //Auto2 is the same as auto1 but without launcher or grabber
 
     Robot robot;
     CvPipeline pipeline;
