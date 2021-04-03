@@ -152,8 +152,10 @@ public class Robot {
 
         if (!(objectVals[2] > 40 && objectVals[2] < 150)) { //Don't do anything if tower not found
             telemetry.addData("Error: ", "Could not find tower goal");
+            telemetry.addData("Tower Width: ", objectVals[2]);
+            telemetry.addData("Tower X: ",objectVals[0]);
             telemetry.update();
-            return;
+            //return;
         }
         calculateDrivePowers(dx, dw, 0);
         sendDrivePowers();
