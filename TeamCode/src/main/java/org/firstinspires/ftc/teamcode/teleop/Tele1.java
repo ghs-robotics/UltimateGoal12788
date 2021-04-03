@@ -2,9 +2,9 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.components.Controller;
-import org.firstinspires.ftc.teamcode.components.CvPipeline;
 import org.firstinspires.ftc.teamcode.components.Robot;
 
 @TeleOp(name="Tele1", group="Iterative Opmode")
@@ -15,11 +15,18 @@ public class Tele1 extends OpMode
     Controller controller1;
     //Controller controller2;
 
+    Servo gripTilt, gripGrab = null;
+
+    double gripTiltPos = 0.55;
+    double gripGrabPos = 0.25;
+
     //Code to run ONCE when the driver hits INIT
     @Override
     public void init() {
         robot = new Robot(hardwareMap, telemetry);
         controller1 = new Controller(gamepad1);
+        gripTilt = hardwareMap.get(Servo.class, "gripTilt");
+        gripGrab = hardwareMap.get(Servo.class, "gripGrab");
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         robot.cameraManager.initCamera();
@@ -31,7 +38,11 @@ public class Tele1 extends OpMode
 
     //Code to run ONCE when the driver hits PLAY
     @Override
-    public void start() { robot.resetElapsedTime(); }
+    public void start() {
+        robot.resetElapsedTime();
+//        gripGrabPos = gripGrab.getPosition();
+//        gripTiltPos = gripTilt.getPosition();
+    }
 
     //Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
     @Override
@@ -43,6 +54,21 @@ public class Tele1 extends OpMode
         if (controller1.x.equals("pressing")) {
             robot.toggleSpeed();
         }
+
+        if (controller1.dpad_up.equals("pressing")) gripTiltPos += 0.05;
+        if (controller1.dpad_down.equals("pressing")) gripTiltPos -= 0.05;
+        if (controller1.dpad_left.equals("pressing")) gripGrabPos += 0.05;
+        if (controller1.dpad_right.equals("pressing")) gripGrabPos -= 0.05;
+
+        gripTilt.setPosition(gripTiltPos);
+        gripGrab.setPosition(gripGrabPos);
+
+
+//        gripGrabPos = gripGrab.getPosition();
+//        gripTiltPos = gripTilt.getPosition();
+
+        telemetry.addData("tilt: ", gripTiltPos);
+        telemetry.addData("grab: ", gripGrabPos);
 
         //Mecanum wheel drive
         robot.calculateDrivePowers(
