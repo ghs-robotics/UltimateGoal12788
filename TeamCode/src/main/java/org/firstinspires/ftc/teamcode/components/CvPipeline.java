@@ -16,14 +16,14 @@ import java.util.List;
 public class CvPipeline extends OpenCvPipeline {
     public static final Scalar LOWER_RING_HSV = new Scalar(74, 153, 144); // original values: 74, 153, 144
     public static final Scalar UPPER_RING_HSV = new Scalar(112, 242, 255); // original values: 112, 242, 255
-    public static final Scalar LOWER_TOWER_HSV = new Scalar(0, 80, 100); // original values: 0, 124, 60
-    public static final Scalar UPPER_TOWER_HSV = new Scalar(80, 255, 220); // original values: 54, 212, 255
+    public static final Scalar LOWER_TOWER_HSV = new Scalar(122, 188, 38); // original values: 0, 124, 60
+    public static final Scalar UPPER_TOWER_HSV = new Scalar(169, 255, 162); // original values: 54, 212, 255
     public static final Scalar LOWER_WOBBLE_HSV = new Scalar(0, 117, 0);
     public static final Scalar UPPER_WOBBLE_HSV = new Scalar(77, 255, 97);
 
     // CV detection variables
-    public static Scalar lower = LOWER_RING_HSV; // We identify rings by default to start out
-    public static Scalar upper = UPPER_RING_HSV;
+    public static Scalar lower = LOWER_TOWER_HSV; // We identify rings by default to start out
+    public static Scalar upper = UPPER_TOWER_HSV;
     public static double cover = 0; // The fraction of the top part of the camera screen that is
     // covered, which is useful when we don't want the phone to detect anything beyond the field
 
