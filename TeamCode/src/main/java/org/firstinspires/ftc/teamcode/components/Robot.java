@@ -42,6 +42,12 @@ public class Robot {
     public Gyro gyro;
     public Telemetry telemetry;
 
+    // PID controllers
+    public PIDController xPID; // For the x-position of the robot
+    public PIDController yPID; // For the y-position of the robot
+    public PIDController wPID; // For the width of the tower goal
+    public PIDController gyroPID; // Controls the angle
+
     // Creates a robot object with methods that we can use in both Auto and TeleOp
     public Robot(HardwareMap hardwareMap, Telemetry telemetry) {
 
@@ -69,6 +75,12 @@ public class Robot {
         elapsedTime = new ElapsedTime();
         elapsedTime.reset();
         this.telemetry = telemetry;
+
+        // Initializing PID objects
+        xPID = new PIDController(0.0120, 0.0022, 0.0015, 2);
+        yPID = new PIDController(0.0200, 0.0025, 0.0010, 2);
+        wPID = new PIDController(0.0450, 0.0015, 0.0020, 2); //0.0440, 0.0016, 0.0010
+        gyroPID = new PIDController(0.0330, 0.0000, 0.0020, 2); //works best when Ki = 0
     }
 
     public void stopDrive() {
@@ -116,9 +128,9 @@ public class Robot {
 
     public void setTargetTo(String target) { //Takes "ring", "wobble", or "tower"
         currentTargetObject = target;
-        //xPID.resetValues(); yPID.resetValues(); We should add PID later!
-        //SET LOWER AND UPPER IN CVPIPELINE
-        //Keep in mind that
+        xPID.resetValues();
+        yPID.resetValues();
+        wPID.resetValues();
         targetVals[0] = target == "ring" ? 230 : target == "wobble" ? 60 : 140;
         targetVals[1] = target == "ring" ? 190 : target == "wobble" ? 160 : 0;
         targetVals[2] = target == "tower" ? 70 : 0;
@@ -135,8 +147,8 @@ public class Robot {
         double rotation = 0; //Maybe add this as parameter later
         setTargetTo(target);
         updateObjectValues();
-        double dx = targetVals[0] - objectVals[0];
-        double dy = targetVals[1] - objectVals[1];
+        double dx = xPID.calcVal(targetVals[0] - objectVals[0]);
+        double dy = yPID.calcVal(targetVals[1] - objectVals[1]);
         calculateDrivePowers(dx, dy, rotation);
         sendDrivePowers();
     }
@@ -147,8 +159,8 @@ public class Robot {
         cameraManager.setTargetToTower();
         updateObjectValues();
 
-        double dx = targetVals[0] - objectVals[0];
-        double dw = targetVals[2] - objectVals[2];
+        double dx = xPID.calcVal(targetVals[0] - objectVals[0]);
+        double dw = wPID.calcVal(targetVals[2] - objectVals[2]);
 
         if (!(objectVals[2] > 40 && objectVals[2] < 150)) { //Don't do anything if tower not found
             telemetry.addData("Error: ", "Could not find tower goal");
@@ -223,8 +235,9 @@ public class Robot {
     }
 
     public void adjustAngle() {
-        double pidConst = -0.033; //Maybe adjust this later... Temp because we don't have PID yet
-        calculateDrivePowers(0, 0, (targetAngle - gyro.getAngle()) * pidConst);
+        //double pidConst = -0.033; //Maybe adjust this later... Temp because we don't have PID yet
+        //calculateDrivePowers(0, 0, (targetAngle - gyro.getAngle()) * pidConst);
+        calculateDrivePowers(0, 0, -gyroPID.calcVal(targetAngle - gyro.getAngle()));
         sendDrivePowers();
     }
 
