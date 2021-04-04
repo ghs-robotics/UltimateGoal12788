@@ -84,8 +84,13 @@ public class CvPipeline extends OpenCvPipeline {
         // Draw largest rect
         Imgproc.rectangle(src, largest, GREEN, 1); // TODO : comment out?
 
+        //update object values
+        objectX = largest.x;
+        objectY = largest.y;
+        objectWidth = largest.width;
+        objectHeight = largest.height;
+
         return src;
-        //return new int[]{largest.x, largest.y, largest.width, largest.height};
     }
 
     @Override
