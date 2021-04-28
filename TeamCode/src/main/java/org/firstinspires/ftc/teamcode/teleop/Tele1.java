@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.components.Controller;
@@ -15,7 +17,8 @@ public class Tele1 extends OpMode
     Controller controller1;
     //Controller controller2;
 
-    Servo gripTilt, gripGrab = null;
+    Servo launcherServo = null;
+    DcMotor launcherMotor = null;
 
     double gripTiltPos = 0.55;
     double gripGrabPos = 0.25;
@@ -25,8 +28,9 @@ public class Tele1 extends OpMode
     public void init() {
         robot = new Robot(hardwareMap, telemetry);
         controller1 = new Controller(gamepad1);
-        gripTilt = hardwareMap.get(Servo.class, "gripTilt");
-        gripGrab = hardwareMap.get(Servo.class, "gripGrab");
+        launcherServo = hardwareMap.get(Servo.class, "launcherServo");
+        launcherMotor = hardwareMap.get(DcMotor.class, "launcher");
+        launcherMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         robot.cameraManager.initCamera();
@@ -50,25 +54,29 @@ public class Tele1 extends OpMode
         //Registers controller input
         controller1.update();
 
+        if (controller1.right_bumper.equals("pressing")) {
+            if (launcherMotor.getPower() > 0.5) {
+                launcherMotor.setPower(0.0);
+            } else {
+                launcherMotor.setPower(0.75);
+            }
+        }
+
+        if (controller1.left_bumper.equals("pressed")) {
+            launcherServo.setPosition(0.2);
+        } else {
+            launcherServo.setPosition(0.7);
+        }
+
+
+
+//        telemetry.addData("servo pos", launcherServo.getPosition());
+//        launcherServo.setPosition(1.0 - controller1.left_trigger);
+
         //Press "x" to toggle speed between 100% and 30%
         if (controller1.x.equals("pressing")) {
             robot.toggleSpeed();
         }
-
-        if (controller1.dpad_up.equals("pressing")) gripTiltPos += 0.05;
-        if (controller1.dpad_down.equals("pressing")) gripTiltPos -= 0.05;
-        if (controller1.dpad_left.equals("pressing")) gripGrabPos += 0.05;
-        if (controller1.dpad_right.equals("pressing")) gripGrabPos -= 0.05;
-
-        gripTilt.setPosition(gripTiltPos);
-        gripGrab.setPosition(gripGrabPos);
-
-
-//        gripGrabPos = gripGrab.getPosition();
-//        gripTiltPos = gripTilt.getPosition();
-
-        telemetry.addData("tilt: ", gripTiltPos);
-        telemetry.addData("grab: ", gripGrabPos);
 
         //Mecanum wheel drive
         robot.calculateDrivePowers(

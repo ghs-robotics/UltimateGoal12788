@@ -28,8 +28,14 @@ public class Auto1 extends LinearOpMode {
         robot.resetElapsedTime();
 
 
-        while(robot.getElapsedTimeSeconds() < 2.0) {
+        while(robot.getElapsedTimeSeconds() < 4.0) {
             robot.calculateDrivePowers(0.0, 0.6, 0.0);
+//            robot.calculateDrivePowers(0.3, 0.0, 0.0);
+            robot.updateDrive();
+        }
+        while(robot.getElapsedTimeSeconds() < 4.5) {
+            robot.calculateDrivePowers(0.0, -0.6, 0.0);
+//            robot.calculateDrivePowers(-0.3, 0.0, 0.0);
             robot.updateDrive();
         }
 
